@@ -57,7 +57,9 @@ The cryptographic proof mechanism means that the oracle operator cannot manipula
 
 The oracle set consists of bonded nodes that are economically incentivised to behave honestly. In the unlikely event that an adversary compromises VRF's randomness-generating secret key and obtains the ability to construct blocks on the target chain, they could strongly bias the result.
 
-Chainlink has stated that VRF has been providing verifiable randomness to more than 2,200 unique smart contracts across multiple blockchain networks since its launch.
+Chainlink VRF is the dominant randomness solution by adoption, securing randomness for thousands of smart contracts across Ethereum and over 20 additional blockchain networks.
+
+> [DATA NEEDED] The original note cited "more than 2,200 unique smart contracts" but the claim cannot be verified against the cited Chainlink sources. The exact figure should be confirmed against Chainlink's official reporting or on-chain data before using in the RFP.
 
 ## Use cases
 
