@@ -84,8 +84,6 @@ Source for comparison table: AdevarLabs blog on Solana randomness.
 ## References
 
 - ORAO Solana VRF GitHub repository: https://github.com/orao-network/solana-vrf
-- ORAO VRF Rust crate: https://crates.io/crates/orao-solana-vrf
-- ORAO VRF npm package: https://www.npmjs.com/package/@orao-network/solana-vrf
 - AdevarLabs, "On-Chain Randomness on Solana: Predictability, Manipulation and Safer Alternatives (Part 1)": https://www.adevarlabs.com/blog/on-chain-randomness-on-solana-predictability-manipulation-safer-alternatives-part-1
 - Solrand Devpost: https://devpost.com/software/solrand
-- Solana Stack Exchange, "How to generate random numbers on-chain": https://solana.stackexchange.com/questions/45/how-to-generate-random-numbers-on-chain [NOT RETRIEVED - 403]
+- Solana Stack Exchange, "How to generate random numbers on-chain": https://solana.stackexchange.com/questions/45/how-to-generate-random-numbers-on-chain
