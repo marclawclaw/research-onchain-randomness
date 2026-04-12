@@ -18,7 +18,7 @@ VDFs address this by introducing a time-bound delay between the RANDAO output be
 
 Ethereum's minimal VDF beacon design (September 2018) split time into contiguous 8-second slots and 128-slot epochs. The VDF would be evaluated on the RANDAO output for epoch N, and the result would seed epoch N+2, introducing a two-epoch delay that prevents any single actor from influencing the randomness for the immediately following epoch.
 
-The security argument required only one honest participant to compute and post the VDF result. Even if all VDF hardware were controlled by an attacker, they could not speed up the computation beyond the designed delay without building ASICs more than 100 times more efficient than community-provided hardware.
+The security argument required only one honest participant to compute and post the VDF result. Even if all VDF hardware were controlled by an attacker, they could not speed up the computation beyond the designed delay without building ASICs more than 100 times more efficient than community-provided hardware (eth2book, 2025).
 
 ## Why VDFs Were Not Deployed
 
@@ -40,7 +40,7 @@ Polkadot also recognised the value of VDFs for randomness. According to the Polk
 
 ## Solana's Hash Chain (Not a True VDF)
 
-Solana uses a SHA-256 hash chain as part of its Proof of History mechanism, which the Solana documentation previously described as a "verifiable delay function." However, this is not a true VDF in the cryptographic sense. As noted in Solana GitHub Issue #388, a SHA-256 hash chain takes the same amount of time to verify as it does to compute. A true VDF requires verification to be exponentially faster than computation (roughly log(t) versus t steps). Solana's hash chain is better described as a proof of sequential work rather than a VDF. The Solana team acknowledged this distinction in their documentation, noting that the authors of the original VDF paper would object to the term being applied to their approach.
+Solana uses a SHA-256 hash chain as part of its Proof of History mechanism, which the Solana documentation previously described as a "verifiable delay function." However, this is not a true VDF in the cryptographic sense. A SHA-256 hash chain takes the same amount of time to verify as it does to compute; a true VDF requires verification to be exponentially faster than computation (roughly log(t) versus t steps). Solana's hash chain is better described as a proof of sequential work rather than a VDF. The Solana team acknowledged this distinction in their documentation, noting that the authors of the original VDF paper would object to the term being applied to their approach (AdevaraLabs, 2024).
 
 ## VDF Research Landscape
 
@@ -59,6 +59,6 @@ Security of Pietrzak/Wesolowski schemes relies on the low-order assumption in th
 - https://blog.trailofbits.com/2018/10/12/introduction-to-verifiable-delay-functions-vdfs/
 - https://vdfresearch.org/
 - https://docs.polkadot.com/reference/parachains/randomness/
-- https://github.com/solana-labs/solana/issues/388
+- https://www.adevarlabs.com/blog/on-chain-randomness-on-solana-predictability-manipulation-safer-alternatives-part-1
 - https://eth2book.info/latest/part2/building_blocks/randomness/
 - https://www.adevarlabs.com/blog/on-chain-randomness-on-solana-predictability-manipulation-safer-alternatives-part-1
