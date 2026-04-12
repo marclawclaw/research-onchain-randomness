@@ -33,13 +33,13 @@ The current design replaced hash onions with BLS signatures. Every validator alr
 
 ### Last Revealer Attack (LRA)
 
-In a naive CRS-based RANDAO using XOR aggregation, the last participant to reveal can gain control over the final output. If the attacker is the proposer in the final slot, they know the accumulated value from all previous slots and can choose whether to reveal or withhold their signature. By selectively revealing or withholding, the attacker can bias the output toward a value that favours them (Tran & Quang, 2024). In the original Ethereum 1.0 RANDAO contract, Pietrzak (2018, cited in Tran & Quang, 2024) showed that if an attacker controlled 36% of total staked ETH, they could potentially manipulate proposer selection.
+In a naive CRS-based RANDAO using XOR aggregation, the last participant to reveal can gain control over the final output. If the attacker is the proposer in the final slot, they know the accumulated value from all previous slots and can choose whether to reveal or withhold their signature. By selectively revealing or withholding, the attacker can bias the output toward a value that favours them (Tran & Quang, 2024). In the original Ethereum 1.0 RANDAO contract, Buterin (2018, cited in Tran & Quang, 2024) showed that if an attacker controlled 36% of total staked ETH, they could potentially manipulate proposer selection.
 
 Critically, the XOR aggregation means that `N xor N = 0` and `0 xor N = N`. If colluding validators duplicate each other's inputs, the honest contributions can be cancelled out. With N/2 colluding validators, the output can be coerced to zero; with N/2 + 1, it can be coerced to an arbitrary value (Revelry, 2018). Ethereum 2.0 mitigates this by requiring each validator to contribute only the correct BLS signature over the epoch number, which they cannot choose or duplicate.
 
 ### RANDAOtage
 
-RANDAOtage is an attack vector combining RANDAO bias with validator outages. An attacker who can take down a sufficient number of validators (through coordinated censorship or infrastructure attacks) can monopolise beacon block production and bias the RANDAO output. This is a committee-corruption attack that exploits the interplay between network reliability and randomness quality (RANDAOtage notes, Ethereum Research).
+RANDAOtage is an attack vector combining RANDAO bias with validator outages. An attacker who can take down a sufficient number of validators (through coordinated censorship or infrastructure attacks) can monopolise beacon block production and bias the RANDAO output. This is a committee-corruption attack that exploits the interplay between network reliability and randomness quality (notes.ethereum.org).
 
 ### Predictability
 
