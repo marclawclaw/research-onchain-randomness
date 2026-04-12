@@ -45,12 +45,28 @@ The fundamental tension: randomness must be unpredictable *before* use, but veri
 
 ## Logos LEZ Applicability
 
-For a Logos Execution Zone (LEZ) smart contract ecosystem, the options are:
+### Critical Finding: LEZ Cannot Read L1 State
 
-1. **Integrate Chainlink VRF** if Logos EVM-compatible (成熟, 20+ chains, 2,200+ contracts)
-2. **Build a RANDAO-like commit-reveal into the LEZ consensus** if Logos has its own consensus mechanism
-3. **Integrate Pyth Entropy** if cross-chain availability is important
-4. **Avoid raw blockhash usage** regardless of chain, due to leader manipulation risk
+After auditing the `logos-blockchain/logos-execution-zone` codebase (the LEZ sequencer and indexer), the following architecture was confirmed:
+
+- **L1 (Logos/Bedrock)** runs Cryptarchia PPoS consensus. The epoch nonce (`eta_ep`) is computed inside the cryptarchia engine and used for leader election, but it is **not exposed via any API endpoint**.
+- **The Indexer** parses L2 block inscriptions from L1 and tracks the L1 `HeaderId` internally, but the `subscribe_to_finalized_blocks()` RPC only exposes the L2 `BlockId`, not the L1 header.
+- **The LEZ Sequencer** produces L2 blocks using wall-clock timestamps, not any L1-derived value. There is no sysvar, system call, or oracle mechanism that exposes the L1 epoch nonce to the SVM context.
+- **`CryptarchiaInfo`** (the consensus info struct served by the L1 node API) contains `lib`, `tip`, `slot`, `height`, and `mode`, but **does not include the epoch nonce**.
+
+**Conclusion:** LEZ SVM programs cannot access Logos L1 consensus randomness without either (a) an oracle, or (b) a protocol-level change to expose the L1 epoch nonce.
+
+Source: [[lez-architecture]]
+
+### Recommended Paths for LEZ Randomness
+
+1. **Oracle-based (available now):** Integrate Chainlink VRF or Pyth Entropy on LEZ. Logos would need to deploy a randomness consumer contract and integrate with the oracle's existing networks.
+2. **L1 randomness contract (future):** Deploy a contract on Logos L1 that exposes the epoch nonce at epoch boundaries. LEZ sequencer or a bridge module would call this contract and relay the value to LEZ programs. Requires protocol-level addition.
+3. **LEZ-native commit-reveal:** Build a commit-reveal scheme directly into the LEZ sequencer, independent of L1 consensus randomness.
+
+### No Direct L1 Read Possible
+
+Unlike Solana (where contracts can read the blockhash via a sysvar account), LEZ has no equivalent mechanism. The L2 block is inscribed to L1 as transaction data, but L1 block headers (containing consensus metadata) are not readable from the SVM execution context.
 
 ## Pending Fact-Checking
 
