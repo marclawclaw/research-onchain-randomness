@@ -52,6 +52,10 @@ The critical question for LEZ smart contracts is: **can the SVM execution enviro
 
 This is a key architectural question that needs resolution in the LEZ design. The ideal case is direct L1 beacon access (no oracle trust assumption). The fallback is integrating an oracle (Pyth Entropy or Switchboard SRS) into the SVM environment.
 
+**Roadmap dependency:** The LEZ roadmap includes a FURPS item (F31: Block Context) that will expose a **random oracle** to LEZ programs. See `lez_block_context.md` in the [Logos roadmap](https://roadmap.logos.co/blockchain/roadmap/lez_block_context). The checklist item "Block context exposed to programs" is still open. This random oracle (SVM `Randomness` sysvar, derived from blockhash) is the near-term mechanism for LEZ programs to access pseudorandomness. Note that this is distinct from L1 epoch nonce access: it provides SVM-level blockhash-derived randomness, not Cryptarchia PVSS consensus randomness.
+
+**For bias-resistant L1-anchored randomness:** Once the Oracle track (AnonComms, targeting Testnet v0.2) is complete, a VRF or entropy feed could be integrated via the same oracle mechanism. Until then, an external oracle (Chainlink VRF or Pyth Entropy) is the viable path for applications requiring verifiably unbiased randomness.
+
 ## References
 
 - Nomos blog on Cryptarchia: https://blog.nomos.tech/nomos-cryptarchia-improving-on-ouroboros-crypsinous/
